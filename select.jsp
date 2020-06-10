@@ -30,11 +30,6 @@
 	String user = "db1610049";
 	String pw = "oracle";
 	
-	String formId = request.getParameter("id");
-	String formPass = request.getParameter("password");
-	String confirmPass = request.getParameter("passwordConfirm");
-	String formAddr = request.getParameter("address");
-
 	Connection con = DriverManager.getConnection(dburl, user, pw);
 	
 	String query_books = "select * from books where res_id="+session_id;
@@ -50,8 +45,10 @@
 	String author = null;
 	String publisher = null;
 	String date_book = null;
+	
 	String seat = null;
 	String date_seat = null;
+	
 	SimpleDateFormat bookFormat = new SimpleDateFormat("yyyy-mm-dd");
 	SimpleDateFormat seatFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
 
@@ -107,7 +104,6 @@
 		<%
 			}
 		%>
-		
 		
 	</table>
 
