@@ -21,8 +21,7 @@
 	String formPass = request.getParameter("password");
 	String confirmPass = request.getParameter("passwordConfirm");
 	String formAddr = request.getParameter("address");
-	String st = request.getParameter("mode");
-	System.out.println(st);
+	//String st = request.getParameter("mode");
 	
 	if(!formPass.equals(confirmPass)) {
 		%><script> 
@@ -35,23 +34,20 @@
 	
 		try{          
 			myConn = DriverManager.getConnection(dburl, user, pw);
-			
-			System.out.println(st);
-			if( true){// st.equals("true")){
-	
-				String mySQL = "UPDATE students SET s_pwd=?, s_major=? WHERE s_id=?";      
-				pstmt = myConn.prepareStatement(mySQL);
 				
-				pstmt.setString(1, formPass);
-				pstmt.setString(2, formAddr);
-				pstmt.setString(3, formId);
+			String mySQL = "UPDATE students SET s_pwd=?, s_major=? WHERE s_id=?";      
+			pstmt = myConn.prepareStatement(mySQL);
+				
+			pstmt.setString(1, formPass);
+			pstmt.setString(2, formAddr);
+			pstmt.setString(3, formId);
 	
-				pstmt.executeUpdate();
+			pstmt.executeUpdate();
 	
-			}
+			
 			%><script> 
-				alert("성공적으로 수정했습니다."); 
-				location.href="main.jsp";  
+			alert("성공적으로 수정했습니다."); 
+			location.href="main.jsp";  
 			</script><%
 		}catch(SQLException ex){
 			String sMessage="";
