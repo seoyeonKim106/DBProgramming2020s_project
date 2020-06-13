@@ -13,13 +13,17 @@
 	request.setCharacterEncoding("UTF-8");
 	String option=request.getParameter("options");
 	String keyword=request.getParameter("keyword");
-	System.out.println(option+"/"+keyword);
+	System.out.println(keyword);
+	if(keyword==null){
 %>
-
+<script>
+	alert("검색어를 입력하십시오.");
+</script>
 <table width="75%" align="center" border>
 <br>	
 <tr><th>책번호</th><th>책제목</th><th>작가</th><th>출판사</th><th>관련전공</th><th>상태</th></tr>
 <%
+	}
 	Connection myConn=null;
 	Statement stmt=null;
 	Statement stmt2=null;
