@@ -22,7 +22,7 @@
 	//minji 
 	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	String user = "db1713926";
+	String user = "db1610049";
 	String pw = "oracle";
 	Statement stmt = null;	
 	String mySQL = null;	

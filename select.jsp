@@ -27,7 +27,7 @@
 	Connection myConn = null;
 	
 	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	String user = "db1713926";
+	String user = "db1610049";
 	String pw = "oracle";
 	
 	Connection con = DriverManager.getConnection(dburl, user, pw);
