@@ -14,7 +14,6 @@
 		<td id="seat_tag" ><div align="center">좌석번호</div></td>
 		<td><div align="center"><input type="text" name="seatID" id="seat_id_in"></div></td>
 	</tr>
-	</tr> 
 	<tr><td colspan=2><div align="center" id = "seat_div_btn"> 
 	<table width="75%" align="center" bgcolor="#FFFF99" border>
 	<td align="center"><b><a href="seat_verify.jsp">좌석 예약</b></td>
