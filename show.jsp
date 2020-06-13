@@ -90,7 +90,7 @@
 %>
 			<script> 
 				alert("예약 정보가 없습니다."); 
-				location.href="seat.jsp";  
+				location.href="seats.jsp";  
 			</script>
 <% 			
 		}
