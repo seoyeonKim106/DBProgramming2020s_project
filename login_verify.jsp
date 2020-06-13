@@ -14,11 +14,13 @@ String passwd = "oracle";
 Class.forName(driver);
 Connection con = DriverManager.getConnection(url, user, passwd);
 Statement stmt = con.createStatement();
-String query = "select s_id from students where s_id='"+userID+"' and s_pwd='"+userPassword+"'";
+String query = "select * from students where s_id='"+userID+"' and s_pwd='"+userPassword+"'";
 ResultSet rs = stmt.executeQuery(query); 
 
 if (rs.next()){ // exists.
 	session.setAttribute("user", rs.getString("s_id"));
+	session.setAttribute("major", rs.getString("s_major"));
+
 %>
 <script>location.href = "main.jsp"; </script>
 

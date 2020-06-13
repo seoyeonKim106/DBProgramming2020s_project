@@ -26,10 +26,12 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td colspan=2><div align="center">
-						<INPUT TYPE="SUBMIT" NAME="Submit" VALUE="로그인"> <INPUT
-							TYPE="RESET" VALUE="취소">
-					</div></td>
+				<td colspan=2>
+					<div align="center">
+							<INPUT TYPE="SUBMIT" NAME="Submit" VALUE="로그인"> 
+							<INPUT TYPE="RESET" VALUE="취소">
+					</div>
+				</td>
 			</tr>
 		</form>
 	</table>

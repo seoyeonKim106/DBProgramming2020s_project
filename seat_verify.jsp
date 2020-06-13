@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
     <%@ page import="java.sql.*" %>
    <%@ page import="java.util.Date" %>
 <%@ page import="java.io.*" %>
@@ -11,6 +11,7 @@
 </head>
 <link rel='stylesheet' href='./dbDesign.css' />
 <body>
+<%@include file="top.jsp"%>
 
 <%
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
@@ -25,7 +26,6 @@
 	PreparedStatement pp=null;
 	ResultSet rs = null; 	
 	String seatID = request.getParameter("seat_id");
-	String session_id=request.getPrameter("user");
 	String str="";
 
 	try{
@@ -48,7 +48,7 @@
 			pp.executeUpdate();
 %>
 			<script>
-			alert("аб╪╝ ©╧╬Ю ©о╥А!");
+			alert("Л╒▄Л└² Л≤┬Л∙╫ Л≥└Кё▄!");
 			response.sendRedirect("seat.jsp");
 			</script>
 <% 
@@ -56,7 +56,7 @@
 		else{
 %>
 			<script> 
-					alert("юл╧л ©╧╬Ю╣х аб╪╝ют╢о╢ы. ╢ы╦╔ аб╪╝ю╩ ют╥бгь аж╪╪©Д."); 
+					alert("Л²╢К╞╦ Л≤┬Л∙╫К░° Л╒▄Л└²Л·┘К▀┬К▀╓. К▀╓К╔╦ Л╒▄Л└²Л²└ Л·┘К═╔М∙╢ Лё╪Л└╦Л ■."); 
 					response.sendRedirect("seat.jsp");  
 			</script> 
 <% 		

@@ -35,12 +35,12 @@
 	</div>
 	<br><br>
 	
-<% session_id=(String)session.getAttribute("userID");
+<% 
 	String recomd;
-	if(session_id==null)
-	recomd="empty";
-	else recomd=(String)session.getAttribute("major");
+	if (session_id==null) recomd="empty";
+	else recomd = (String)session.getAttribute("major");
 	
+	System.out.print(recomd);
 	if(recomd.equals("empty")){	
 %>
 <table width="75%" align="center" border>

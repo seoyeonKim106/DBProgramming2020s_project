@@ -73,22 +73,12 @@
 			</tr>
 			<tr>  
 			  <td id="update_td">비밀번호</td>
-			  <td><input id="update_pw_in" type="password" name="password" size="10" value=<%=userPw%>></td>
-			  <td id="update_td">확인</td>
-			  <td><input id="update_pw_in" type="password" name="passwordConfirm" size="10" ></td>
+			  <td><input id="update_pw_in" type="password" name="password" size="50"></td>
 			</tr>
 			
 			<tr>
-<%
-			String up_name = "이름";
-%>
-			  <td id="update_td"><%=up_name%></td>
-			  <td colspan="3"><input id="update_add_in" type="text" name="address" size="50" value="<%=userId%>"></td>
-			</tr>
-			<tr>
 			  <td colspan="4" align="center">
-			  <input id="update_btn" type="submit" value="수정 완료">
-			  <input id="update_btn" type="reset" value="초기화">
+			  <input id="update_btn" type="submit" value="확인">
 			</tr>
 			</table>
 			</form>

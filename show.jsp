@@ -9,12 +9,13 @@
 
 </head>
 <body>
+<%@include file="top.jsp"%>
 <%
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1713926";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
+	String user = "db1610049";
 	String passwd = "oracle";
 	Statement stmt = null;	
 	String mySQL = null;	
@@ -23,11 +24,11 @@
 	try{
 		myConn = DriverManager.getConnection(dburl, user, passwd);
 		stmt = myConn.createStatement(); 
-		mySQL = "select seat_id, res_id, res_date from seats where res_id='" + userID +"'";
+		mySQL = "select seat_id, res_id, res_date from seats where res_id='"+session_id+"'";
 		rs = stmt.executeQuery(mySQL);
-		String userID = request.getParameter("res_id	");
-		String seatID=request.getParameter("seat_id");
-		String date=request.getParameter("res_date");
+		String userID = request.getParameter("res_id");
+		String seatID = request.getParameter("seat_id");
+		String date = request.getParameter("res_date");
 		
 		if(rs==null){
 %>
