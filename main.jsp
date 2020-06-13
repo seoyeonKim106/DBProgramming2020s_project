@@ -19,7 +19,6 @@
 			} else {
 		%>
     <tr>
-        <th scope="row">항목명</th>
         <td>로그인한 후 사용하세요.</td>
     </tr>
     <%

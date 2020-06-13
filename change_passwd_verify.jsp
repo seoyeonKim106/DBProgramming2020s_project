@@ -47,23 +47,43 @@
 			alert("비밀번호가 변경되었습니다."); 
 			location.href="main.jsp";  
 		</script><%
-	}catch(SQLException ex){
+	} catch (SQLException ex){
 		String sMessage="";
-		if (ex.getErrorCode() == 20002)
-			sMessage = "암호는 4자리 이상이어야합니다.";
-		else if (ex.getErrorCode() == 20003)
-			sMessage = "암호에 공란은 입력되지 않습니다.";
-		else
-			sMessage = "잠시 후 다시 시도하십시오.";
+		if (ex.getErrorCode() == 20002){
+			
+			%>
+			<script>
+			alert("암호는 4자리 이상이어야합니다.");
+			location.href="change_passwd.jsp";  
+			</script>
+			<% 
+		}
+		else if (ex.getErrorCode() == 20003){
+			
+			%>
+			<script>
+			alert("암호에 공란은 입력되지 않습니다.");
+			location.href="change_passwd.jsp";  
+			</script>
+			<% 
+		}
+		else {
+			
 			String err = ex.getMessage();
-			System.out.print(err);
-		out.println("<script>");
-		out.println("alert('"+sMessage+"');");
-		out.println("location.href='update.jsp';");
-		out.println("</script>");
-		out.flush();
-		pstmt.close();
-		  
+			System.out.print(ex.getErrorCode());
+			/* System.out.println("<script>");
+			System.out.println("alert('"+sMessage+"');");
+			System.out.println("location.href='update.jsp';");
+			System.out.println("</script>");
+			System.out.flush(); */
+			pstmt.close();
+			%>
+			<script>
+			alert("잠시 후 다시 시도하십시오.");
+			location.href="change_passwd.jsp";  
+			</script>
+			<% 
+		}
 	}	
 	
 %>
