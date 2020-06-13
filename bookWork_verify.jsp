@@ -25,8 +25,8 @@
 <%
 		Connection myConn=null;
 		String result=null;
-		String dburl="jdbc:oracle:thin:@db.sd.ac.kr:1521:ora9";
-		String user="db1713926"; String passwd="oracle";
+		String dburl="jdbc:oracle:thin:@db.sd.ac.kr:1521:xe";
+		String user="db1610049"; String passwd="oracle";
 		String dbdriver="oracle.jdbc.driver.OracleDriver";
 
 		try{
