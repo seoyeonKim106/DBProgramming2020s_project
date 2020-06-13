@@ -13,7 +13,7 @@
 	Connection myConn = null;
 	
 	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	String user = "db1610049";
+	String user = "db1713926";
 	String pw = "oracle";
 	
 	PreparedStatement pstmt = null;
