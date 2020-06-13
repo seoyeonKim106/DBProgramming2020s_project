@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8"%>
+	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <%@ page import="java.sql.*" %>
 
 <html>
-<head><title> ë„ì„œê´€ ì‚¬ìš©ì ì •ë³´ ìˆ˜ì • </title></head>
+<head><title> µµ¼­°ü »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ </title></head>
 <body>
 <%@include file="top.jsp"%>
 <%
@@ -35,13 +35,13 @@
 	String userPw = rs.getString("s_pwd");
 	System.out.print(userPw);
 	
-	if(!formPass.equals(userPw)) { // ë¹„ë²ˆ í‹€ë¦¼ 
+	if(!formPass.equals(userPw)) { // ºñ¹ø Æ²¸² 
 		%><script> 
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”."); 
+		alert("ºñ¹Ğ¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä."); 
 		location.href="update.jsp";  
 		</script><%
 	}
-	else { // ë¹„ë²ˆ ë§ìŒ -> ì •ë³´ ìˆ˜ì • í˜ì´ì§€ë¡œ ì´ë™ 
+	else { // ºñ¹ø ¸ÂÀ½ -> Á¤º¸ ¼öÁ¤ ÆäÀÌÁö·Î ÀÌµ¿ 
 		
 			
 			%><script> 
@@ -50,12 +50,12 @@
 		/* }catch(SQLException ex){
 			String sMessage="";
 			if (ex.getErrorCode() == 20002)
-				sMessage = "ì•”í˜¸ëŠ” 4ìë¦¬ ì´ìƒì´ì–´ì•¼í•©ë‹ˆë‹¤.";
+				sMessage = "¾ÏÈ£´Â 4ÀÚ¸® ÀÌ»óÀÌ¾î¾ßÇÕ´Ï´Ù.";
 			else if (ex.getErrorCode() == 20003)
-				sMessage = "ì•”í˜¸ì— ê³µë€ì€ ì…ë ¥ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+				sMessage = "¾ÏÈ£¿¡ °ø¶õÀº ÀÔ·ÂµÇÁö ¾Ê½À´Ï´Ù.";
 			else
 				out.println(ex);
-				sMessage = "ì ì‹œ í›„ ë‹¤ì‹œ ì‹œë„í•˜ì‹­ì‹œì˜¤.";
+				sMessage = "Àá½Ã ÈÄ ´Ù½Ã ½ÃµµÇÏ½Ê½Ã¿À.";
 			out.println("<script>");
 			out.println("alert('"+sMessage+"');");
 			out.println("location.href='update.jsp';");

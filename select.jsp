@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="EUC-KR">
 	<title>도서관 사용자 정보 조회 </title>
 	<link rel='stylesheet' href='./dbDesign.css' />	
 </head>
@@ -32,15 +32,8 @@
 	
 	Connection con = DriverManager.getConnection(dburl, user, pw);
 	
-	String query_books = "select * from books where res_id="+session_id;
-	String query_seats = "select * from seats where res_id="+session_id;
-
-	Statement stmt_books = con.createStatement();
-	Statement stmt_seats = con.createStatement();
 	
-	ResultSet rs_books = stmt_books.executeQuery(query_books);
-	ResultSet rs_seats = stmt_seats.executeQuery(query_seats);
-
+	String b_id;
 	String title = null;
 	String author = null;
 	String publisher = null;
@@ -52,43 +45,102 @@
 	SimpleDateFormat bookFormat = new SimpleDateFormat("yyyy-mm-dd");
 	SimpleDateFormat seatFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
 
+	String query_reserv_state = "select * from reserve where s_id="+session_id;
+	String query_reserv_books = "select * from books where b_id='";
+	String query_check_out_state = "select * from checkOut where s_id="+session_id;
+	String query_check_out_books = "select * from books where b_id='";
+	String query_seats = "select * from seats where res_id="+session_id;
+
+	Statement stmt_reserv_state = con.createStatement();
+	Statement stmt_reserv_books = con.createStatement();
+	Statement stmt_check_out_state = con.createStatement();
+	Statement stmt_check_out_books = con.createStatement();
+	Statement stmt_seats = con.createStatement();
+
+	ResultSet rs_reserv_state = stmt_reserv_state.executeQuery(query_reserv_state);
+	ResultSet rs_reserv_books ;
+	ResultSet rs_check_out_state = stmt_check_out_state.executeQuery(query_check_out_state);
+	ResultSet rs_check_out_books ;
+	ResultSet rs_seats = stmt_seats.executeQuery(query_seats);
+
+
 	int count = 0;
 %>
-	<table width="75%" align="center">
+	<table class="type02" width="75%" align="center">
 		<tr>
-			<td align="center"><b><%=session_id%>님 도서 대출 내역 </b></td>
+			<td><b><%=session_id%>님 도서 예약 내역 </b></td><p>
 		</tr>
 		<%
-			while (rs_books.next()) {
+			while (rs_reserv_state.next()) {
 				count++;
-				title = rs_books.getString("title");
-				author = rs_books.getString("author");
-				publisher = rs_books.getString("publisher");
-				date_book = rs_books.getString("res_date");
-				date_book = bookFormat.format(bookFormat.parse(date_book));
-		%>
-			<tr>
-				<td><%=title%> </td>
-				<td><%=author%></td>
-				<td><%=publisher%></td>
-				<td>반납 기한:<%=date_book%> </td>
+				b_id = rs_reserv_state.getString("b_id");
+				query_reserv_books = "select * from books where b_id='"+b_id+"'";
+				rs_reserv_books = stmt_reserv_state.executeQuery(query_reserv_books);
 				
-			</tr>
-		<%
+				rs_reserv_books.next();
+				title = rs_reserv_books.getString("title");
+				author = rs_reserv_books.getString("author");
+				publisher = rs_reserv_books.getString("publisher");
+			%>
+				<tr>
+					<th scope="row"><%=count%></th>
+					<td><%=title%> </td>
+					<td><%=author%></td>
+					<td><%=publisher%></td>
+				</tr>
+			<%
+				
 			}
-		
 			if (count == 0){
 		%>
 		<tr>
-			<td>대출 내역이 없습니다.</td>
+			<td align="center">예약 내역이 없습니다.</td><p>
 		</tr>
 		<%} else { %>
 		<tr>
-			<td>총 <%=count%>권 대출하셨습니다.</td>
+			<td align="center">총 <%=count%>권 예약하셨습니다.</td><p>
 		</tr>
 		<% } %>
+	</table>
+	<table class="type02" width="75%" align="center">
 		<tr>
-			<td align="center"><b><%=session_id%>님 좌석 예약 및 사용 현황 </b></td>	
+			<td><b><%=session_id%>님 도서 대출 내역 </b></td><p>
+		</tr>
+			<%
+			while (rs_check_out_state.next()) {
+				count++;
+				b_id = rs_check_out_state.getString("b_id");
+				query_check_out_books = "select * from books where b_id='"+b_id+"'";
+				rs_check_out_books = stmt_check_out_books.executeQuery(query_check_out_books);
+				
+				while(rs_check_out_books.next()){
+					title = rs_check_out_books.getString("title");
+					author = rs_check_out_books.getString("author");
+					publisher = rs_check_out_books.getString("publisher");
+				%>
+					<tr>
+						<th scope="row"><%=count%></th>
+						<td><%=title%> </td>
+						<td><%=author%></td>
+						<td><%=publisher%></td>
+					</tr>
+				<%
+				}
+			}
+			if (count == 0){
+		%>
+		<tr>
+			<td align="center">대출 내역이 없습니다.</td><p>
+		</tr>
+		<%} else { %>
+		<tr>
+			<td align="center">총 <%=count%>권 대출하셨습니다.</td><p>
+		</tr>
+		<% } %>
+	</table>
+	<table class="type02" width="75%" align="center">
+		<tr>
+			<td><b><%=session_id%>님 좌석 예약 내역 </b></td><p>
 		</tr>
 		<%
 			while (rs_seats.next()) {
@@ -98,8 +150,12 @@
 				date_seat = seatFormat.format(seatFormat.parse(date_seat));
 		%>
 			<tr>
-				<td>예약 좌석: <%=seat%> </td>
-				<td>예약 시각: <%=date_seat%> </td>
+				<th scope="row">예약 좌석</th>
+				<td><%=seat%> </td><p>
+			</tr>
+			<tr>
+				<th scope="row">예약 시각</th>
+				<td><%=date_seat%> </td><p>
 			</tr>
 		<%
 			}

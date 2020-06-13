@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="EUC-KR"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<head><title>ì±… ì •ë³´</title>
+<head><title>Ã¥ Á¤º¸</title>
 </head>
 <body>
 <%@include file="top.jsp"%>
@@ -17,11 +17,11 @@
 	if(keyword==null){
 %>
 <script>
-	alert("ê²€ìƒ‰ì–´ë¥¼ ìž…ë ¥í•˜ì‹­ì‹œì˜¤.");
+	alert("°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.");
 </script>
 <table width="75%" align="center" border>
 <br>	
-<tr><th>ì±…ë²ˆí˜¸</th><th>ì±…ì œëª©</th><th>ìž‘ê°€</th><th>ì¶œíŒì‚¬</th><th>ê´€ë ¨ì „ê³µ</th><th>ìƒíƒœ</th></tr>
+<tr><th>Ã¥¹øÈ£</th><th>Ã¥Á¦¸ñ</th><th>ÀÛ°¡</th><th>ÃâÆÇ»ç</th><th>°ü·ÃÀü°ø</th><th>»óÅÂ</th></tr>
 <%
 	}
 	Connection myConn=null;
@@ -55,7 +55,7 @@
 	myResultSet=stmt.executeQuery(mySQL);
 	myResultSet_ck=stmt2.executeQuery(mySQL_ck);
 	
-	String state="ëŒ€ì¶œ ê°€ëŠ¥";
+	String state="´ëÃâ °¡´É";
 	String b_id="";
 	int st=1;
 	
@@ -68,7 +68,7 @@
 			String major=myResultSet.getString("b_major");
 			while(myResultSet_ck.next()){
 				String ck_b_id=myResultSet_ck.getString("b_id");
-				if(ck_b_id.equals(b_id)) {state="ëŒ€ì¶œ ì¤‘";st=0;}
+				if(ck_b_id.equals(b_id)) {state="´ëÃâ Áß";st=0;}
 			}
 %>		
 <tr>
@@ -80,7 +80,7 @@
 <td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
 </tr>
 <%
-			state="ëŒ€ì¶œ ê°€ëŠ¥";
+			state="´ëÃâ °¡´É";
 			st=1;
 		}
 	}

@@ -1,26 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
 
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Л╒▄Л└² Л≤┬Л∙╫ Л▀°Л┼╓М┘°</title>
+<title>аб╪╝ ©╧╬Ю ╫ц╫╨еш</title>
 </head>
 <body>
+<%@ include file="top.jsp" %>
+
 
 <table width="40%" align="center" id="seat_id">
 <form method="post" action="seat_verify.jsp" name="seat_form">
 	<tr height="50pt;">
-		<td id="seat_tag" ><div align="center">Л╒▄Л└²К╡┬М≤╦</div></td>
+		<td id="seat_tag" ><div align="center">аб╪╝╧Ьхё</div></td>
 		<td><div align="center"><input type="text" name="seatID" id="seat_id_in"></div></td>
 	</tr>
 	</tr> 
 	<tr><td colspan=2><div align="center" id = "seat_div_btn"> 
 	<table width="75%" align="center" bgcolor="#FFFF99" border>
-	<td align="center"><b><a href="seat_verify.jsp">Л╒▄Л└² Л≤┬Л∙╫</b></td>
-	<td align="center"><b><a href="show.jsp">Л≤┬Л∙╫ Л╒▄Л└² Л║╟М ▄</b></td>
+	<td align="center"><b><a href="seat_verify.jsp">аб╪╝ ©╧╬Ю</b></td>
+	<td align="center"><b><a href="show.jsp">©╧╬Ю аб╪╝ а╤х╦</b></td>
 	</div></td></tr> </table>
 </form>
-</body>>
+</body>
 
 </html>

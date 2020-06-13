@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="EUC-KR"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
-<head><title> ë„ì„œê´€ ì‚¬ìš©ìž ì •ë³´ ìˆ˜ì • </title>
+<head><title> µµ¼­°ü »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ </title>
 </head>
 <body>
 <%@include file="top.jsp"%>
@@ -32,20 +32,20 @@
 	<form action="change_passwd_verify.jsp?id=<%=session_id%>" method="post">
 	<table align="center" id="update_table">
 	<tr>
-	  <td id="update_td">ì•„ì´ë””</td>
+	  <td id="update_td">¾ÆÀÌµð</td>
 	  <td colspan="3"><input id="update_id_in" type="text" name="id" size="50" style="text-align: center;" value="<%=session_id%>" disabled></td>
 	</tr>
 	<tr>  
-	  <td id="update_td">ë¹„ë°€ë²ˆí˜¸</td>
+	  <td id="update_td">ºñ¹Ð¹øÈ£</td>
 	  <td><input id="update_pw_in" type="password" name="password" size="50"></td>
 	</tr>
 	<tr>  
-	  <td id="update_td">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
+	  <td id="update_td">ºñ¹Ð¹øÈ£ È®ÀÎ</td>
 	  <td><input id="update_pw_in" type="password" name="passwordConfirm" size="50"></td>
 	</tr>
 	<tr>
 	  <td colspan="4" align="center">
-	  <input id="update_btn" type="submit" value="ë¹„ë°€ë²ˆí˜¸ ë³€ê²½">
+	  <input id="update_btn" type="submit" value="ºñ¹Ð¹øÈ£ º¯°æ">
 	</tr>
 	</table>
 	</form>

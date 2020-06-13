@@ -1,15 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<body>
 <% String session_id = (String) session.getAttribute("user");
 String log;
 if (session_id == null)
-log = "<a href=login.jsp>ë¡œê·¸ì¸</a>";
-else log = "<a href=logout.jsp>ë¡œê·¸ì•„ì›ƒ</a>"; %>
-<table width="75%" align="center" bgcolor="#FFFF99" border>
-<tr>
-<td align="center"><b><%=log%></b></td>
-<td align="center"><b><a href="update.jsp">ì‚¬ìš©ìž ì •ë³´ ìˆ˜ì •</b></td>
-<td align="center"><b><a href="bookMenu.jsp">ì±… ëŒ€ì¶œ ë° ì˜ˆì•½</b></td>
-<td align="center"><b><a href="seats.jsp">ì¢Œì„ ì˜ˆì•½</b></td>
-<td align="center"><b><a href="select.jsp">ì‚¬ìš©ìž ì •ë³´ ì¡°íšŒ</b></td>
-</tr>
+log = "<a href=login.jsp>·Î±×ÀÎ</a>";
+else log = "<a href=logout.jsp>·Î±×¾Æ¿ô</a>"; %>
+<p style="text-align: center;">
+<a href=main.jsp><img src="sym01_l.gif"  height="100"></a>
+<a href=main.jsp><img src="log01_l_01.gif" height="80"></a>
+</p>
+
+
+<table class="type04" align = 'center'>
+    <tr>
+        <td><b><%=log%></b></td>
+        <td><b><a href="update.jsp">»ç¿ëÀÚ Á¤º¸ ¼öÁ¤</b></td>
+        <td><b><a href="bookMenu.jsp">Ã¥ ´ëÃâ ¹× ¿¹¾à</b></td>
+        <td><b><a href="seats.jsp">ÁÂ¼® ¿¹¾à</b></td>
+        <td><b><a href="select.jsp">»ç¿ëÀÚ Á¤º¸ Á¶È¸</b></td>
+    </tr>
+    
 </table>
+
+
+</body>
+</html>

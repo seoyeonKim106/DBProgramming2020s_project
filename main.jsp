@@ -1,29 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>К█╟Л²╢М└╟К╡═Л²╢Л┼╓К╔╪ М≥°Л ╘М∙° Л┬≤Й╟∙Л▀═Л╡╜ Л▀°Л┼╓М┘°Л·┘К▀┬К▀╓.</title>
+<title>╣╔юлем╨ёюл╫╨╦╕ х╟©Кгя ╪Ж╟╜╫ец╩ ╫ц╫╨ешют╢о╢ы.</title>
 </head>
 <body>
 	<%@include file="top.jsp"%>
-	<table width="75%" align="center" height="100%">
-		<%
+	
+	
+	<table class="type04" align="center">
+	<%
 			if (session_id != null) {
 		%>
-		<tr>
-			<td align="center"><%=session_id%>К▀≤ К╟╘К╛╦Л²└ М≥≤Л≤│М∙╘К▀┬К▀╓.</td>
-		</tr>
-		<%
+    <tr>
+        <td><%=session_id%>╢т ╧Ф╧╝ю╩ х╞©╣гу╢о╢ы.</td>
+    </tr><%
 			} else {
 		%>
-		<tr>
-			<td align="center">К║°Й╥╦Л²╦М∙° М⌡└ Л┌╛Л ╘М∙≤Л└╦Л ■.</td>
-		</tr>
-		<%
+    <tr>
+        <th scope="row">гв╦Я╦М</th>
+        <td>╥н╠вюнгя хд ╩Г©Кго╪╪©Д.</td>
+    </tr>
+    <%
 			}
 		%>
-	</table>
+</table>
+
 </body>
 </html>

@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="java.sql.*" %>
-   <%@ page import="java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.io.*" %>
  
 <!DOCTYPE html>
@@ -48,7 +47,7 @@
 			pp.executeUpdate();
 %>
 			<script>
-			alert("Л╒▄Л└² Л≤┬Л∙╫ Л≥└Кё▄!");
+			alert("аб╪╝ ©╧╬Ю ©о╥А!");
 			response.sendRedirect("seat.jsp");
 			</script>
 <% 
@@ -56,7 +55,7 @@
 		else{
 %>
 			<script> 
-					alert("Л²╢К╞╦ Л≤┬Л∙╫К░° Л╒▄Л└²Л·┘К▀┬К▀╓. К▀╓К╔╦ Л╒▄Л└²Л²└ Л·┘К═╔М∙╢ Лё╪Л└╦Л ■."); 
+					alert("юл╧л ©╧╬Ю╣х аб╪╝ют╢о╢ы. ╢ы╦╔ аб╪╝ю╩ ют╥бгь аж╪╪©Д."); 
 					response.sendRedirect("seat.jsp");  
 			</script> 
 <% 		
