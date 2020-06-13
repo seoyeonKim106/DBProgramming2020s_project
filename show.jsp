@@ -10,11 +10,6 @@
 </head>
 <body>
 <%
-
-	String userID = request.getParameter("res_id");
-	String seatID=request.getParameter("seat_id");
-	String date=request.getParameter("res_date");
-
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
@@ -30,18 +25,21 @@
 		stmt = myConn.createStatement(); 
 		mySQL = "select seat_id, res_id, res_date from seats where res_id='" + userID +"'";
 		rs = stmt.executeQuery(mySQL);
+		String userID = request.getParameter("res_id	");
+		String seatID=request.getParameter("seat_id");
+		String date=request.getParameter("res_date");
 		
 		if(rs==null){
 %>
 			<script> 
-				alert("���� ��蹂닿� ���듬����."); 
+				alert("예약 정보가 없습니다."); 
 				location.href="seat.jsp";  
 			</script>
 <% 			
 		}
 		else{
 %>
-			<tr> <td align="center"><%=userID%>��! <%=date %>�� <%=seatID %>瑜� ���쏀�����듬����.</td> </tr>
+			<tr> <td align="center"><%=userID%>님! <%=date %>에 <%=seatID %>를 예약하였습니다.</td> </tr>
 <% 			
 		}
 		stmt.close(); 
