@@ -35,7 +35,7 @@
 	</div>
 	<br><br>
 	
-<% session_id=(String)session.getAttribute("user");
+<% session_id=(String)session.getAttribute("userID");
 	String recomd;
 	if(session_id==null)
 	recomd="empty";
