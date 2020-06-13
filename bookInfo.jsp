@@ -13,7 +13,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String option=request.getParameter("options");
 	String keyword=request.getParameter("keyword");
-	System.out.println(keyword);
+	System.out.println("keyword:"+keyword);
 	if(keyword==null){
 %>
 <script>
