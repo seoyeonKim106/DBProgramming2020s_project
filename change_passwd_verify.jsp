@@ -71,11 +71,6 @@
 			
 			String err = ex.getMessage();
 			System.out.print(ex.getErrorCode());
-			/* System.out.println("<script>");
-			System.out.println("alert('"+sMessage+"');");
-			System.out.println("location.href='update.jsp';");
-			System.out.println("</script>");
-			System.out.flush(); */
 			pstmt.close();
 			%>
 			<script>
