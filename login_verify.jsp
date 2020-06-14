@@ -7,10 +7,10 @@ String userID=request.getParameter("userID");
 String userPassword=request.getParameter("userPassword");
 
 String driver = "oracle.jdbc.driver.OracleDriver";
-//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-//String user="db1610049";
-String user="db1713926";
+String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+//String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+String user="db1610049";
+//String user="db1713926";
 String passwd = "oracle";  
 
 Class.forName(driver);
