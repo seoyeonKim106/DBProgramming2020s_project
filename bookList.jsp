@@ -1,21 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
-<head><title>Ã¥ list</title>
+<head><title>ì±… list</title>
 </head>
 <body>
 <%@include file="top.jsp"%>
 
 <table width="75%" align="center" border>
 <br>	
-<tr>
-<th>Ã¥¹øÈ£</th>
-<th>Á¦¸ñ</th>
-<th>ÀúÀÚ</th>
-<th>»óÅÂ</th>
-</tr>
+<tr><th>ì±…ë²ˆí˜¸</th><th>ì±…ì œëª©</th><th>ì‘ê°€</th><th>ìƒíƒœ</th></tr>
 <%
 	Connection myConn=null;
 	Statement stmt=null;
@@ -23,8 +18,10 @@
 	ResultSet myResultSet=null;
 	ResultSet myResultSet_ck=null;
 	String dbdriver="oracle.jdbc.driver.OracleDriver";
-	String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-	String user="db1610049";
+	//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+	//String user="db1610049";
+	String user="db1713926";
 	String passwd="oracle";
 		
 	try{
@@ -40,7 +37,7 @@
 	myResultSet=stmt.executeQuery(mySQL);
 	myResultSet_ck=stmt2.executeQuery(mySQL_ck);
 	
-	String state="´ëÃâ °¡´É";
+	String state="ëŒ€ì¶œ ê°€ëŠ¥";
 	String b_id="";
 	int st=1;
 	
@@ -51,17 +48,17 @@
 			String author=myResultSet.getString("author");
 			while(myResultSet_ck.next()){
 				String ck_b_id=myResultSet_ck.getString("b_id");
-				if(ck_b_id.equals(b_id)) {state="´ëÃâ Áß";st=0;}
+				if(ck_b_id.equals(b_id)) {state="ëŒ€ì¶œ ì¤‘";st=0;}
 			}
 %>		
 <tr>
 <td align="center"><%=b_id%></td>
 <td align="center"><a href="bookInfo.jsp?b_id=<%=b_id%>"><%=title%></td>
 <td align="center"><%=author%></td>
-<td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=state%>"><%=state%></a></td>
+<td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
 </tr>
 <%
-			state="´ëÃâ °¡´É";
+			state="ëŒ€ì¶œ ê°€ëŠ¥";
 			st=1;
 		}
 	}

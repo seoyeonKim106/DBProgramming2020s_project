@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<head><title>Ã¥ °Ë»ö&ÃßÃµ</title>
+<head><title>ì±… ê²€ìƒ‰&ì¶”ì²œ</title>
 </head>
 <body>
 <%@include file="top.jsp"%>
@@ -16,49 +16,57 @@
 			<td colspan=1><div align="center">
 				<br>
 					<SELECT NAME="options">
-				        <option value="title" selected>Á¦¸ñ</option>
-				        <option value="author">ÀÛ°¡</option>
-				        <option value="publisher">ÃâÆÇ»ç</option>		
-				        <option value="major">Àü°ø</option>	
+				        <option value="title" selected>ì œëª©</option>
+				        <option value="author">ìž‘ê°€</option>
+				        <option value="publisher">ì¶œíŒì‚¬</option>		
+				        <option value="major">ì „ê³µ</option>	
 					</SELECT><p>
 			</div></td>
 			<td colspan=2><div align="center">
 				<input type="text" name="keyword">
-				<input TYPE="SUBMIT" VALUE="°Ë»ö">
+				<input TYPE="SUBMIT" VALUE="ê²€ìƒ‰">
 			</div></td>
 			</tr>
 		</form>
 	</table>
 	<br>
 	<div align="center">
-	<button type="button" onclick="javascript:location.href='bookList.jsp'">Ã¥ ¸ðµÎ º¸ÀÌ±â</button>
+	<button type="button" onclick="javascript:location.href='bookList.jsp'">ì±… ëª¨ë‘ ë³´ì´ê¸°</button>
 	</div>
 	<br><br>
 	
-<% 
+<% //session_id=(String)session.getAttribute("user");
 	String recomd;
-	if (session_id==null) recomd="empty";
-	else recomd = (String)session.getAttribute("major");
+	if(session_id==null)
+	recomd="empty";
+	else recomd=(String)session.getAttribute("major");
 	
-	System.out.print(recomd);
 	if(recomd.equals("empty")){	
 %>
 <table width="75%" align="center" border>
-	<caption><strong>Àü°ø°ü·Ã¼­Àû</strong></caption>
+	<caption><strong>ì „ê³µê´€ë ¨ì„œì </strong></caption>
 	<td colspan=1><div align="center">
-		<p>Àü°øÀ» ¾Ë ¼ö ¾ø½À´Ï´Ù. ·Î±×ÀÎÇÏ½Ê½Ã¿À.</p>
+		<p>ì „ê³µì„ ì•Œ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ë¡œê·¸ì¸í•˜ì‹­ì‹œì˜¤.</p>
 		</div></td>
 </table>
 <%
 	}else{
+		
+%>
+<table width="75%" align="center" border>
+<caption><strong>ì „ê³µê´€ë ¨ì„œì </strong></caption>
+<tr><th>ì±…ë²ˆí˜¸</th><th>ì±…ì œëª©</th><th>ìž‘ê°€</th><th>ìƒíƒœ</th></tr>
+<%
 		Connection myConn=null;
 		Statement stmt=null;
 		Statement stmt2=null;
 		ResultSet myResultSet=null;
 		ResultSet myResultSet_ck=null;
 		String dbdriver="oracle.jdbc.driver.OracleDriver";
-		String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-		String user="db1610049";
+		//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+		String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+		//String user="db1610049";
+		String user="db1713926";
 		String passwd="oracle";
 			
 		try{
@@ -74,20 +82,11 @@
 		myResultSet=stmt.executeQuery(mySQL);
 		myResultSet_ck=stmt2.executeQuery(mySQL_ck);
 		
-		String state="´ëÃâ °¡´É";
+		String state="ëŒ€ì¶œ ê°€ëŠ¥";
 		int st=1;
 		String b_id="";
 		String title="";
-		%>
-		<table width="75%" align="center" border>
-		<caption><strong>Àü°ø°ü·Ã¼­Àû</strong></caption>
-		<tr>
-			<th>Ã¥¹øÈ£</th>
-			<th>Á¦¸ñ</th>
-			<th>ÀúÀÚ</th>
-			<th>»óÅÂ</th>
-		</tr>
-		<%
+		
 		if(myResultSet!=null){
 			while(myResultSet.next()){
 				b_id=myResultSet.getString("b_id");
@@ -95,18 +94,17 @@
 				String author=myResultSet.getString("author");
 				while(myResultSet_ck.next()){
 					String ck_b_id=myResultSet_ck.getString("b_id");
-					if(ck_b_id.equals(b_id)){ state="´ëÃâ Áß";st=0;}
+					if(ck_b_id.equals(b_id)){ state="ëŒ€ì¶œ ì¤‘";st=0;}
 				}
-		%>	
-		
-		<tr>
-		<td align="center"><%=b_id%></td>
-		<td align="center"><%=title%></td>
-		<td align="center"><%=author%></td>
-		<td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
-		</tr>
-		<%
-				state="´ëÃâ °¡´É";
+%>	
+<tr>
+<td align="center"><%=b_id%></td>
+<td align="center"><%=title%></td>
+<td align="center"><%=author%></td>
+<td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
+</tr>
+<%
+				state="ëŒ€ì¶œ ê°€ëŠ¥";
 				st=1;
 			}
 		}

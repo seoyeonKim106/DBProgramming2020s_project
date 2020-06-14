@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"  pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <%@ page import="java.util.Date" %>
 <%@ page import="java.io.*" %>
@@ -10,7 +10,7 @@
 </style>
 <html>
 <head>
-	<title>µµ¼­°ü »ç¿ëÀÚ Á¤º¸ ¼öÁ¤</title>
+	<title>ë„ì„œê´€ ì‚¬ìš©ìž ì •ë³´ ìˆ˜ì •</title>
 	<link rel='stylesheet' href='./dbDesign.css' />
 </head>
 <body>
@@ -18,11 +18,10 @@
 <%
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
-	Connection myConn = null;
-	//minji 
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	String user = "db1610049";
+	//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+	//String user="db1610049";
+	String user = "db1713926";
 	String pw = "oracle";
 	Statement stmt = null;	
 	String mySQL = null;	
@@ -33,7 +32,7 @@
 <%
 	if (session_id == null) { %>
 		<script> 
-			alert("·Î±×ÀÎ ÈÄ »ç¿ëÇÏ¼¼¿ä."); 
+			alert("ë¡œê·¸ì¸ í›„ ì‚¬ìš©í•˜ì„¸ìš”."); 
 			location.href="login.jsp";  
 		</script>
 <%
@@ -58,7 +57,7 @@
 				else {
 %>
 					<script> 
-						alert("¼¼¼ÇÀÌ Á¾·áµÇ¾ú½À´Ï´Ù. ´Ù½Ã ·Î±×ÀÎ ÇØÁÖ¼¼¿ä."); 
+						alert("ì„¸ì…˜ì´ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸ í•´ì£¼ì„¸ìš”."); 
 						location.href="login.jsp";  
 					</script>  
 <%
@@ -68,17 +67,27 @@
 			<form action="update_verify.jsp?id=<%=session_id%>" method="post">
 			<table align="center" id="update_table">
 			<tr>
-			  <td id="update_td">¾ÆÀÌµð</td>
+			  <td id="update_td">ì•„ì´ë””</td>
 			  <td colspan="3"><input id="update_id_in" type="text" name="id" size="50" style="text-align: center;" value="<%=session_id%>" disabled></td>
 			</tr>
 			<tr>  
-			  <td id="update_td">ºñ¹Ð¹øÈ£</td>
-			  <td><input id="update_pw_in" type="password" name="password" size="50"></td>
+			  <td id="update_td">ë¹„ë°€ë²ˆí˜¸</td>
+			  <td><input id="update_pw_in" type="password" name="password" size="10" value=<%=userPw%>></td>
+			  <td id="update_td">í™•ì¸</td>
+			  <td><input id="update_pw_in" type="password" name="passwordConfirm" size="10" ></td>
 			</tr>
 			
 			<tr>
+<%
+			String up_name = "ì´ë¦„";
+%>
+			  <td id="update_td"><%=up_name%></td>
+			  <td colspan="3"><input id="update_add_in" type="text" name="address" size="50" value="<%=userId%>"></td>
+			</tr>
+			<tr>
 			  <td colspan="4" align="center">
-			  <input id="update_btn" type="submit" value="È®ÀÎ">
+			  <input id="update_btn" type="submit" value="ìˆ˜ì • ì™„ë£Œ">
+			  <input id="update_btn" type="reset" value="ì´ˆê¸°í™”">
 			</tr>
 			</table>
 			</form>
