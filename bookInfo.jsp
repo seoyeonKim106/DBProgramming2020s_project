@@ -1,37 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<head><title>Ã¥ Á¤º¸</title>
+<head><title>ì±… ì •ë³´</title>
 </head>
 <body>
 <%@include file="top.jsp"%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String option=request.getParameter("options");
-	String keyword=request.getParameter("keyword");
-	System.out.println("keyword:"+keyword);
-	if(keyword==null){
-%>
+	String id_b=request.getParameter("b_id");
+	String option="";
+	String keyword="";
+	if(id_b!=null){
+		option="title";
+		System.out.println(""+id_b+"/"+option);
+	}
+	else{
+		option=request.getParameter("options");
+		keyword=request.getParameter("keyword");
+		if(keyword.length()==0){
+%>			
 <script>
-	alert("°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ½Ê½Ã¿À.");
+	alert("ê²€ìƒ‰ì–´ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”.");
+	location.href="bookMenu.jsp";
 </script>
+<%		
+		}
+		System.out.println(option+"/"+keyword);
+	}
+%>
+
 <table width="75%" align="center" border>
 <br>	
-<tr><th>Ã¥¹øÈ£</th><th>Ã¥Á¦¸ñ</th><th>ÀÛ°¡</th><th>ÃâÆÇ»ç</th><th>°ü·ÃÀü°ø</th><th>»óÅÂ</th></tr>
+<tr><th>ì±…ë²ˆí˜¸</th><th>ì±…ì œëª©</th><th>ìž‘ê°€</th><th>ì¶œíŒì‚¬</th><th>ê´€ë ¨ì „ê³µ</th><th>ìƒíƒœ</th></tr>
 <%
-	}
 	Connection myConn=null;
 	Statement stmt=null;
 	Statement stmt2=null;
 	ResultSet myResultSet=null;
 	ResultSet myResultSet_ck=null;
 	String dbdriver="oracle.jdbc.driver.OracleDriver";
-	String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-	String user="db1610049";
+	//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+	//String user="db1610049";
+	String user="db1713926";
 	String passwd="oracle";
 	String mySQL="";
 		
@@ -43,19 +58,23 @@
 	}
 	stmt=myConn.createStatement();
 	stmt2=myConn.createStatement();
-	if(option.equals("title"))
-		mySQL="select b_id,title,author,publisher,b_major from books where title='"+keyword+"'";
-	else if(option.equals("author"))
-		mySQL="select b_id,title,author,publisher,b_major from books where author='"+keyword+"'";
-	else if(option.equals("publisher"))
-		mySQL="select b_id,title,author,publisher,b_major from books where publisher='"+keyword+"'";
-	else
-		mySQL="select b_id,title,author,publisher,b_major from books where b_major='"+keyword+"'";
+	if(id_b!=null)
+		mySQL="select b_id,title,author,publisher,b_major from books where b_id='"+id_b+"'";
+	else{
+		if(option.equals("title"))
+			mySQL="select b_id,title,author,publisher,b_major from books where UPPER(title) LIKE UPPER('%"+keyword+"%')";
+		else if(option.equals("author"))
+			mySQL="select b_id,title,author,publisher,b_major from books where UPPER(author) LIKE UPPER('%"+keyword+"%')";
+		else if(option.equals("publisher"))
+			mySQL="select b_id,title,author,publisher,b_major from books where UPPER(publisher) LIKE UPPER('%"+keyword+"%')";
+		else
+			mySQL="select b_id,title,author,publisher,b_major from books where UPPER(b_major) LIKE UPPER('%"+keyword+"%')";
+	}
 	String mySQL_ck="SELECT b_id FROM checkOut";
 	myResultSet=stmt.executeQuery(mySQL);
 	myResultSet_ck=stmt2.executeQuery(mySQL_ck);
 	
-	String state="´ëÃâ °¡´É";
+	String state="ëŒ€ì¶œ ê°€ëŠ¥";
 	String b_id="";
 	int st=1;
 	
@@ -68,7 +87,7 @@
 			String major=myResultSet.getString("b_major");
 			while(myResultSet_ck.next()){
 				String ck_b_id=myResultSet_ck.getString("b_id");
-				if(ck_b_id.equals(b_id)) {state="´ëÃâ Áß";st=0;}
+				if(ck_b_id.equals(b_id)) {state="ëŒ€ì¶œ ì¤‘";st=0;}
 			}
 %>		
 <tr>
@@ -80,7 +99,7 @@
 <td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
 </tr>
 <%
-			state="´ëÃâ °¡´É";
+			state="ëŒ€ì¶œ ê°€ëŠ¥";
 			st=1;
 		}
 	}

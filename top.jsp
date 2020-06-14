@@ -3,10 +3,15 @@
 <html>
 <body>
 <% String session_id = (String) session.getAttribute("user");
+String session_major = (String) session.getAttribute("major");
 String log;
 if (session_id == null)
-log = "<a href=login.jsp>로그인</a>";
-else log = "<a href=logout.jsp>로그아웃</a>"; %>
+	log = "<a href=login.jsp>로그인</a>";
+else{ 
+	log = "<a href=logout.jsp>로그아웃</a>";
+	System.out.println("id:"+session_id+"/ major:"+session_major);
+} 
+%>
 <p style="text-align: center;">
 <a href=main.jsp><img src="sym01_l.gif"  height="100"></a>
 <a href=main.jsp><img src="log01_l_01.gif" height="80"></a>
