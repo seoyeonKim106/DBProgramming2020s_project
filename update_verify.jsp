@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8"%>
+	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <%@ page import="java.sql.*" %>
 
 <html>
-<head><title> ë„ì„œê´€ ì‚¬ìš©ì ì •ë³´ ìˆ˜ì • </title></head>
+<head><title> µµ¼­°ü »ç¿ëÀÚ Á¤º¸ ¼öÁ¤ </title></head>
 <body>
+<%@include file="top.jsp"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
@@ -13,58 +14,55 @@
 	Connection myConn = null;
 	
 	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	String user = "db1713926";
+	String user = "db1610049";
 	String pw = "oracle";
 	
 	PreparedStatement pstmt = null;
 	String formId = request.getParameter("id");
 	String formPass = request.getParameter("password");
-	String confirmPass = request.getParameter("passwordConfirm");
-	String formAddr = request.getParameter("address");
-	//String st = request.getParameter("mode");
 	
-	if(!formPass.equals(confirmPass)) {
+	Statement stmt = null;	
+	String mySQL = null;	
+	ResultSet rs = null; 	
+
+	myConn = DriverManager.getConnection(dburl, user, pw);
+	stmt = myConn.createStatement(); 
+	
+	mySQL = "select s_id, s_pwd from students where s_id='" + session_id + "'";
+	rs = stmt.executeQuery(mySQL);
+	
+	rs.next();
+	String userPw = rs.getString("s_pwd");
+	System.out.print(userPw);
+	
+	if(!formPass.equals(userPw)) { // ºñ¹ø Æ²¸² 
 		%><script> 
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”."); 
+		alert("ºñ¹Ğ¹øÈ£¸¦ ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä."); 
 		location.href="update.jsp";  
 		</script><%
 	}
-	else {
-		String str = "";
-	
-		try{          
-			myConn = DriverManager.getConnection(dburl, user, pw);
-				
-			String mySQL = "UPDATE students SET s_pwd=?, s_major=? WHERE s_id=?";      
-			pstmt = myConn.prepareStatement(mySQL);
-				
-			pstmt.setString(1, formPass);
-			pstmt.setString(2, formAddr);
-			pstmt.setString(3, formId);
-	
-			pstmt.executeUpdate();
-	
+	else { // ºñ¹ø ¸ÂÀ½ -> Á¤º¸ ¼öÁ¤ ÆäÀÌÁö·Î ÀÌµ¿ 
+		
 			
 			%><script> 
-			alert("ì„±ê³µì ìœ¼ë¡œ ìˆ˜ì •í–ˆìŠµë‹ˆë‹¤."); 
-			location.href="main.jsp";  
+			location.href="change_passwd.jsp";  
 			</script><%
-		}catch(SQLException ex){
+		/* }catch(SQLException ex){
 			String sMessage="";
 			if (ex.getErrorCode() == 20002)
-				sMessage = "ì•”í˜¸ëŠ” 4ìë¦¬ ì´ìƒì´ì–´ì•¼í•©ë‹ˆë‹¤.";
+				sMessage = "¾ÏÈ£´Â 4ÀÚ¸® ÀÌ»óÀÌ¾î¾ßÇÕ´Ï´Ù.";
 			else if (ex.getErrorCode() == 20003)
-				sMessage = "ì•”í˜¸ì— ê³µë€ì€ ì…ë ¥ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+				sMessage = "¾ÏÈ£¿¡ °ø¶õÀº ÀÔ·ÂµÇÁö ¾Ê½À´Ï´Ù.";
 			else
 				out.println(ex);
-				sMessage = "ì ì‹œ í›„ ë‹¤ì‹œ ì‹œë„í•˜ì‹­ì‹œì˜¤.";
+				sMessage = "Àá½Ã ÈÄ ´Ù½Ã ½ÃµµÇÏ½Ê½Ã¿À.";
 			out.println("<script>");
 			out.println("alert('"+sMessage+"');");
 			out.println("location.href='update.jsp';");
 			out.println("</script>");
 			out.flush();
 			pstmt.close();
-		}  
+		}   */
 	}	
 	
 %>

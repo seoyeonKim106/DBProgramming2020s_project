@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
-    <%@ page import="java.sql.*" %>
-   <%@ page import="java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.io.*" %>
  
 <!DOCTYPE html>
@@ -11,21 +10,21 @@
 </head>
 <link rel='stylesheet' href='./dbDesign.css' />
 <body>
+<%@include file="top.jsp"%>
 
 <%
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1713926";
-	String passwd = "oarcle";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
+	String user = "db1610049";
+	String passwd = "oracle";
 	Statement stmt = null;	
 	String mySQL = null;
 	String sql=null;
 	PreparedStatement pp=null;
 	ResultSet rs = null; 	
 	String seatID = request.getParameter("seat_id");
-	String session_id=request.getPrameter("userID");
 	String str="";
 
 	try{
@@ -61,9 +60,11 @@
 			</script> 
 <% 		
 		}
-		stmt.close(); 
-		myConn.close();
+		
 	}
+	rs.close();
+	stmt.close(); 
+	myConn.close();
 %>
 </body>
 </html>
