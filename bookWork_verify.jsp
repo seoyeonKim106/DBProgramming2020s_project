@@ -10,7 +10,9 @@
 <%@include file="top.jsp"%>
 <%
 	String b_id=request.getParameter("b_id");
+	String state=request.getParameter("state");	//대출:0,예약:1
 	session_id=(String)session.getAttribute("user");
+	
 	if(session_id==null){
 %>
 <script>
@@ -19,16 +21,14 @@
 </script>
 <%
 	}else{
-		System.out.println(b_id+" is going to verified by "+session_id+"authority");	
-		//여기에 checking하는 prepared function??이런거 넣어서 대출이나 예약 가능한지 확인해서 메시지 띄워주고 DB에 저장해야함
 %>
 <%
 		Connection myConn=null;
 		String result=null;
-		String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-	//	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-		String user="db1610049";
-	//	String user="db1713926"; 
+		//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+		String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+		//String user="db1610049";
+		String user="db1713926"; 
 		String passwd="oracle";
 		String dbdriver="oracle.jdbc.driver.OracleDriver";
 
@@ -39,27 +39,53 @@
 			System.out.println("SQLException: "+ex.getMessage());
 		}
 
-		CallableStatement cstmt=myConn.prepareCall("{call InsertBook(?,?,?)}");
-		cstmt.setString(1, b_id);
-		cstmt.setString(2, session_id);
-		cstmt.registerOutParameter(3, java.sql.Types.VARCHAR);
-		try{
-			cstmt.execute();
-			result=cstmt.getString(3);
-			System.out.println(result);
-		%>
-		<script>
-			alert("<%=result%>");
-			location.href="bookMenu.jsp";	//나중에 이 부분은 사용자 정보를 출력하는 페이지로 연결해주기
-		</script>
-		<%
-		}catch(SQLException ex){
-			System.out.println("SQLException: "+ex.getMessage());
-		}finally{
-			if(cstmt!=null)
-				try{
-					myConn.commit();cstmt.close();myConn.close();
-				}catch(SQLException ex){}
+		if(state.equals("0")){	
+			CallableStatement cstmt=myConn.prepareCall("{call InsertBook_ck(?,?,?)}");
+			cstmt.setString(1,b_id);
+			cstmt.setString(2,session_id);
+			cstmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+			try{
+				cstmt.execute();
+				result=cstmt.getString(3);
+				System.out.println(result);
+			%>
+			<script>
+				alert("<%=result%>");
+				location.href="select.jsp";	
+			</script>
+			<%
+			}catch(SQLException ex){
+				System.out.println("SQLException: "+ex.getMessage());
+			}finally{
+				if(cstmt!=null)
+					try{
+						myConn.commit();cstmt.close();myConn.close();
+					}catch(SQLException ex){}
+			}
+		}else if(state.equals("1")){	
+			CallableStatement cstmt=myConn.prepareCall("{call InsertBook_res(?,?,?)}");
+			cstmt.setString(1,b_id);
+			cstmt.setString(2,session_id);
+			cstmt.registerOutParameter(3, java.sql.Types.VARCHAR);
+			try{
+				cstmt.execute();
+				result=cstmt.getString(3);
+				System.out.println(result);
+			%>
+			<script>
+				alert("<%=result%>");
+				location.href="select.jsp";	
+			</script>
+			<%
+			
+			}catch(SQLException ex){
+				System.out.println("SQLException: "+ex.getMessage());
+			}finally{
+				if(cstmt!=null)
+					try{
+						myConn.commit();cstmt.close();myConn.close();
+					}catch(SQLException ex){}
+			}
 		}
 	}
 %>

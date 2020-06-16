@@ -18,10 +18,8 @@
 	ResultSet myResultSet=null;
 	ResultSet myResultSet_ck=null;
 	String dbdriver="oracle.jdbc.driver.OracleDriver";
-	String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-//	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-	String user="db1610049";
-//	String user="db1713926";
+	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+	String user="db1713926";
 	String passwd="oracle";
 		
 	try{
@@ -40,16 +38,26 @@
 	String state="대출 가능";
 	String b_id="";
 	int st=1;
+	String[] ck_b_id=new String[20];
+	
+	for(int i=0;myResultSet_ck.next();i++){
+		ck_b_id[i]=myResultSet_ck.getString("b_id");
+	}
 	
 	if(myResultSet!=null){
 		while(myResultSet.next()){
 			b_id=myResultSet.getString("b_id");
+			//System.out.print(b_id+"/");
 			String title=myResultSet.getString("title");
 			String author=myResultSet.getString("author");
-			while(myResultSet_ck.next()){
-				String ck_b_id=myResultSet_ck.getString("b_id");
-				if(ck_b_id.equals(b_id)) {state="대출 중";st=0;}
+			//while(myResultSet_ck.next()){
+				//String ck_b_id=myResultSet_ck.getString("b_id");
+				//System.out.println(ck_b_id);
+			for(int j=0;ck_b_id[j]!=null;j++){
+				if(ck_b_id[j].equals(b_id)) {state="대출 중";st=0;}
 			}
+			//}
+			//System.out.println(state);
 %>		
 <tr>
 <td align="center"><%=b_id%></td>

@@ -1,56 +1,125 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@page import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="EUC-KR"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
 <%@ page import="java.io.*" %>
+<%
+	/* List<String> list=new ArrayList<>();
+	if(application.getAttribute("complete_list")!=null){
+		list=(List<String>)application.getAttribute("complete_list");
+	}
+	String[] seat=request.getParameterValues("seat");
+	List<String> temp=new ArrayList<>();
+	int count =0;
+	for(String s:seat){
+		if(list.contains(s)){
+			break;
+		}
+		else{
+			temp.add(s);
+			count++;
+		}
+	}
+	if(count==seat.length){
+		list.addAll(temp);
+	}
+	application.setAttribute("complete_list",list); */
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
 <title></title>
-
 </head>
+<link rel='stylesheet' href='./dbDesign.css' />
 <body>
-<%@include file="top.jsp"%>
+
 <%
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-	String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-//	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-	String user="db1610049";
-//	String user="db1713926";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	//String user = "db1416688";
+	String user = "db1713926";
 	String passwd = "oracle";
-	Statement stmt = null;	
-	String mySQL = null;	
-	ResultSet rs = null; 	
+	Statement stmt=null;
+	String mySQL = null;
+	String sql=null;
+	String session_id=request.getParameter("session_id");
+	ResultSet rs = null;
+	ResultSet rs2 = null;
+	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
+	String today = formatter.format(new java.util.Date());
 	
-	try{
-		myConn = DriverManager.getConnection(dburl, user, passwd);
-		stmt = myConn.createStatement(); 
-		mySQL = "select seat_id, res_id, res_date from seats where res_id='"+session_id+"'";
-		rs = stmt.executeQuery(mySQL);
-		String userID = request.getParameter("res_id");
-		String seatID = request.getParameter("seat_id");
-		String date = request.getParameter("res_date");
-		
-		if(rs==null){
+	List<String> list=new ArrayList<>();
+	if(application.getAttribute("complete_list")!=null){
+		list=(List<String>)application.getAttribute("complete_list");
+	}
+	String[] seat=request.getParameterValues("seat");
+	List<String> temp=new ArrayList<>();
+	int count =0;
+	if(seat==null||seat.length>1){
 %>
-			<script> 
-				alert("ì˜ˆì•½ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤."); 
-				location.href="seat.jsp";  
+		        <script>   
+		           alert("´Ù½Ã ¼±ÅÃÇØÁÖ¼¼¿ä.");
+		           location.href="seat.jsp";
+		        </script>
+<%
+		}
+	else{
+		for(String s:seat){
+			if(list.contains(s)){
+				break;
+			}
+			else{
+				temp.add(s);
+				count++;
+			}
+		}
+		if(count==seat.length){
+			list.addAll(temp);
+		}
+	application.setAttribute("complete_list",list);
+	
+		if(count!=seat.length){
+%>		
+			<script>   
+				alert("ÀÌ¹Ì ¿¹¾àµÇ¾ú½À´Ï´Ù.");
+				location.href="seat.jsp";
 			</script>
-<% 			
+<%
 		}
-		else{
 %>
-			<tr> <td align="center"><%=userID%>ë‹˜! <%=date %>ì— <%=seatID %>ë¥¼ ì˜ˆì•½í•˜ì˜€ìŠµë‹ˆë‹¤.</td> </tr>
-<% 			
+		<div align="center">
+			<h2>ÁÂ¼® ¿¹¸Å °á°ú</h2>
+			<p>
+				¼±ÅÃÇÑ ÁÂ¼®<br>
+<% 
+		for(String s:seat){
+			out.print("<b>["+s+"]</br>");
 		}
-		stmt.close(); 
+%>
+		<br> °¡ ¿¹¾àµÇ¾ú½À´Ï´Ù.
+		</p>
+		<a href="seat.jsp">µÚ·Î°¡±â</a>
+		</div>
+<%
+	try{		
+			myConn = DriverManager.getConnection(dburl, user, passwd);
+			stmt=myConn.createStatement();
+			for(int i=0;i<seat.length;i++){	
+				sql="update seats set seat_id='" + seat[i] +"',res_id='"+session_id+"',res_date='"+today+"' where seat_id='" + seat[i] + "'";
+				rs2=stmt.executeQuery(sql);
+			}
+		stmt.close();
 		myConn.close();
+		
 	}catch(SQLException e){
 	    out.println(e);
 	    e.printStackTrace();
 	}
+}
 %>
 </body>
 </html>

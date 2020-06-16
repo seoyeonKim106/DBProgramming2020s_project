@@ -26,10 +26,10 @@
 	Class.forName(dbdriver);
 	Connection myConn = null;
 	
-	String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-//	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-	String user="db1610049";
-//	String user="db1713926";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
+	//String user = "db1610049";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String user = "db1713926";
 	String pw = "oracle";
 	
 	Connection con = DriverManager.getConnection(dburl, user, pw);
@@ -62,11 +62,12 @@
 	ResultSet rs_reserv_state = stmt_reserv_state.executeQuery(query_reserv_state);
 	ResultSet rs_reserv_books ;
 	ResultSet rs_check_out_state = stmt_check_out_state.executeQuery(query_check_out_state);
-	ResultSet rs_check_out_books ;
+	ResultSet rs_check_out_books;
 	ResultSet rs_seats = stmt_seats.executeQuery(query_seats);
 
 
 	int count = 0;
+	int count_ck = 0;
 
 	if (session_id == null) { 
 		
@@ -98,6 +99,7 @@
 						<td><%=title%> </td>
 						<td><%=author%></td>
 						<td><%=publisher%></td>
+						<td><b><a href="resDelete.jsp?b_id=<%=b_id%>">예약 취소</b></td>
 					</tr>
 				<%
 					
@@ -119,35 +121,38 @@
 			</tr>
 				<%
 				while (rs_check_out_state.next()) {
-					count++;
+					count_ck++;
 					b_id = rs_check_out_state.getString("b_id");
-					query_check_out_books = "select * from books where b_id='"+b_id+"'";
+					query_check_out_books = "select * from books where b_id='"+b_id+"'";				
 					rs_check_out_books = stmt_check_out_books.executeQuery(query_check_out_books);
-					
+							
 					while(rs_check_out_books.next()){
 						title = rs_check_out_books.getString("title");
 						author = rs_check_out_books.getString("author");
 						publisher = rs_check_out_books.getString("publisher");
 					%>
 						<tr>
-							<th scope="row"><%=count%></th>
+							<th scope="row"><%=count_ck%></th>
 							<td><%=title%> </td>
 							<td><%=author%></td>
 							<td><%=publisher%></td>
+							<td><b><a href="returnBook.jsp?b_id=<%=b_id%>">반납</b></td>
 						</tr>
 					<%
 					}
 				}
-				if (count == 0){
+				if (count_ck == 0){
 			%>
 			<tr>
 				<td align="center">대출 내역이 없습니다.</td><p>
 			</tr>
 			<%} else { %>
 			<tr>
-				<td align="center">총 <%=count%>권 대출하셨습니다.</td><p>
+				<td align="center">총 <%=count_ck%>권 대출하셨습니다.</td><p>
 			</tr>
-			<% } %>
+			<% 			
+			} 						
+			%>
 		</table>
 		<table class="type02" width="75%" align="center">
 			<tr>

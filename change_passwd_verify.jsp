@@ -12,10 +12,10 @@
 	Connection myConn = null;
 	
 	
-	String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-//	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-	String user="db1610049";
-//	String user="db1713926";
+	//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+	String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+	//String user="db1610049";
+	String user="db1713926";
 	String pw = "oracle";
 	
 	PreparedStatement pstmt = null;
@@ -73,6 +73,11 @@
 			
 			String err = ex.getMessage();
 			System.out.print(ex.getErrorCode());
+			/* System.out.println("<script>");
+			System.out.println("alert('"+sMessage+"');");
+			System.out.println("location.href='update.jsp';");
+			System.out.println("</script>");
+			System.out.flush(); */
 			pstmt.close();
 			%>
 			<script>
