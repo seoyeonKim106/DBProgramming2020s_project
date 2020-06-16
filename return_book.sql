@@ -11,8 +11,6 @@ IS
 	aDays NUMBER;
 	state VARCHAR2(4);
 	overdue NUMBER;
-	ckDate DATE;
-	today VARCHAR2(15);
 BEGIN
 	nCk:=0;
 	overdue:=0;
@@ -21,9 +19,7 @@ BEGIN
 	overdue:=calcOverdue(bId,sId);
 	SELECT stat INTO state FROM students WHERE s_id=sId;
 	SELECT a_date INTO aDays FROM authority WHERE stat=state;
-	SELECT ck_date INTO ckDate FROM checkOut WHERE s_id=sId and b_id=bId;
-	today:=TO_CHAR(SYSDATE);
-	overdue:=TRUNC(TO_DATE(today,'YY/MM/DD')-ckDate);
+	overdue:=calcOverdue(bId,sId);
 	
 	
 	IF (nCk>0)

@@ -6,12 +6,14 @@ CREATE OR REPLACE FUNCTION calcOverdue
 RETURN NUMBER
 IS
 	oDays NUMBER;
+	today VARCHAR2(15);
 	ckDate	DATE;
 BEGIN
 	oDays:=0;
 	
 	SELECT ck_date INTO ckDate FROM checkOut WHERE s_id=sId and b_id=bId;
-	oDays:=TRUNC(SYSDATE)-ckDate;
+	today:=TO_CHAR(SYSDATE);
+	oDays:=TRUNC(TO_DATE(today,'YY/MM/DD')-ckDate);
 
 	RETURN oDays;
 END;
