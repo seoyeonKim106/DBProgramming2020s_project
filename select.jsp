@@ -130,6 +130,7 @@
 					author = rs_check_out_books.getString("author");
 					publisher = rs_check_out_books.getString("publisher");
 					date_book = rs_check_out_books.getString("ck_date");
+					date_book = date_book.split(" ")[0];
 					
 					%>
 						<tr>
