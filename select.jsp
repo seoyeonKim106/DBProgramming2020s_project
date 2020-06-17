@@ -26,16 +26,15 @@
 	Class.forName(dbdriver);
 	Connection myConn = null;
 	
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	//String user = "db1610049";
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	String user = "db1713926";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
+	String user = "db1610049";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	//String user = "db1713926";
 	String pw = "oracle";
 	
 	Connection con = DriverManager.getConnection(dburl, user, pw);
 	
-	
-	String b_id;
+	String b_id ;
 	String title = null;
 	String author = null;
 	String publisher = null;
@@ -47,24 +46,17 @@
 	SimpleDateFormat bookFormat = new SimpleDateFormat("yyyy-mm-dd");
 	SimpleDateFormat seatFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
 
-	String query_reserv_state = "select * from reserve where s_id="+session_id;
-	String query_reserv_books = "select * from books where b_id='";
-	String query_check_out_state = "select * from checkOut where s_id="+session_id;
-	String query_check_out_books = "select * from books where b_id='";
+	String query_reserv_books ;
+	String query_check_out_books ;
 	String query_seats = "select * from seats where res_id="+session_id;
 
-	Statement stmt_reserv_state = con.createStatement();
 	Statement stmt_reserv_books = con.createStatement();
-	Statement stmt_check_out_state = con.createStatement();
 	Statement stmt_check_out_books = con.createStatement();
 	Statement stmt_seats = con.createStatement();
 
-	ResultSet rs_reserv_state = stmt_reserv_state.executeQuery(query_reserv_state);
 	ResultSet rs_reserv_books ;
-	ResultSet rs_check_out_state = stmt_check_out_state.executeQuery(query_check_out_state);
 	ResultSet rs_check_out_books;
 	ResultSet rs_seats = stmt_seats.executeQuery(query_seats);
-
 
 	int count = 0;
 	int count_ck = 0;
@@ -83,16 +75,20 @@
 				<td><b><%=session_id%>님 도서 예약 내역 </b></td><p>
 			</tr>
 			<%
-				while (rs_reserv_state.next()) {
-					count++;
-					b_id = rs_reserv_state.getString("b_id");
-					query_reserv_books = "select * from books where b_id='"+b_id+"'";
-					rs_reserv_books = stmt_reserv_state.executeQuery(query_reserv_books);
+				query_reserv_books = "select * from books, reserve " + 
+										 "where books.b_id=reserve.b_id " + 
+										 "and reserve.s_id='"+session_id+"'";
 					
-					rs_reserv_books.next();
+				rs_reserv_books = stmt_reserv_books.executeQuery(query_reserv_books);
+					
+				while (rs_reserv_books.next()) {
+					b_id = rs_reserv_books.getString("b_id");
 					title = rs_reserv_books.getString("title");
 					author = rs_reserv_books.getString("author");
 					publisher = rs_reserv_books.getString("publisher");
+				
+					count++;
+					
 				%>
 					<tr>
 						<th scope="row"><%=count%></th>
@@ -120,16 +116,20 @@
 				<td><b><%=session_id%>님 도서 대출 내역 </b></td><p>
 			</tr>
 				<%
-				while (rs_check_out_state.next()) {
-					count_ck++;
-					b_id = rs_check_out_state.getString("b_id");
-					query_check_out_books = "select * from books where b_id='"+b_id+"'";				
-					rs_check_out_books = stmt_check_out_books.executeQuery(query_check_out_books);
+				query_check_out_books = "select * from books, checkout "+
+						"where books.b_id=checkout.b_id and " + 
+						"checkout.s_id='" + session_id + "'";		
+				System.out.println(query_check_out_books);
+				rs_check_out_books = stmt_check_out_books.executeQuery(query_check_out_books);
 							
-					while(rs_check_out_books.next()){
-						title = rs_check_out_books.getString("title");
-						author = rs_check_out_books.getString("author");
-						publisher = rs_check_out_books.getString("publisher");
+				while (rs_check_out_books.next()) {
+					count_ck++;
+					
+					b_id = rs_check_out_books.getString("b_id");
+					title = rs_check_out_books.getString("title");
+					author = rs_check_out_books.getString("author");
+					publisher = rs_check_out_books.getString("publisher");
+					
 					%>
 						<tr>
 							<th scope="row"><%=count_ck%></th>
@@ -139,7 +139,6 @@
 							<td><b><a href="returnBook.jsp?b_id=<%=b_id%>">반납</b></td>
 						</tr>
 					<%
-					}
 				}
 				if (count_ck == 0){
 			%>
@@ -159,7 +158,10 @@
 				<td><b><%=session_id%>님 좌석 예약 내역 </b></td><p>
 			</tr>
 			<%
+				int count_seats = 0;
 				while (rs_seats.next()) {
+					count_seats++;
+					
 					seat = rs_seats.getString("seat_id");
 					date_seat = rs_seats.getString("res_date");
 					System.out.println(date_seat);
@@ -174,6 +176,13 @@
 					<td><%=date_seat%> </td><p>
 				</tr>
 			<%
+				}
+				if (count_seats == 0){
+					%>
+					<tr>
+						<td align="center">예약하신 좌석이 없습니다.</td><p>
+					</tr>
+					<%
 				}
 			%>
 			

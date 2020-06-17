@@ -63,8 +63,11 @@
 		ResultSet myResultSet=null;
 		ResultSet myResultSet_ck=null;
 		String dbdriver="oracle.jdbc.driver.OracleDriver";
-		String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-		String user="db1713926";
+		//String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+		//String user="db1713926";
+		String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+		String user="db1610049";
+
 		String passwd="oracle";
 			
 		try{
@@ -73,35 +76,41 @@
 		}catch(SQLException ex){
 			System.out.println("SQLException: "+ex.getMessage());
 		}
+		
 		stmt=myConn.createStatement();
-		stmt2=myConn.createStatement();
-		String mySQL="select b_id,title,author from books where b_major='"+recomd+"'";
-		String mySQL_ck="SELECT b_id FROM checkOut";
+		String mySQL="select B.b_id, B.title, B.author, B.publisher,  NVL(C.s_id, '대출자 없음') as s_id"+
+				" from books B, checkout C where B.b_id = C.b_id (+) and B.b_major = '"+recomd+"'";
+		System.out.println(mySQL);
 		myResultSet=stmt.executeQuery(mySQL);
-		myResultSet_ck=stmt2.executeQuery(mySQL_ck);
 		
 		String state="대출 가능";
 		int st=1;
 		String b_id="";
 		String title="";
+		String author;
+		String s_id ;
 		
 		if(myResultSet!=null){
+			
 			while(myResultSet.next()){
 				b_id=myResultSet.getString("b_id");
 				title=myResultSet.getString("title");
-				String author=myResultSet.getString("author");
-				while(myResultSet_ck.next()){
-					String ck_b_id=myResultSet_ck.getString("b_id");
-					if(ck_b_id.equals(b_id)){ state="대출 중";st=0;}
+				author=myResultSet.getString("author");
+				s_id = myResultSet.getString("s_id");
+
+				if (!s_id.equals("대출자 없음")){
+					state="대출 중";
+					st=0;
+				
 				}
-%>	
-<tr>
-<td align="center"><%=b_id%></td>
-<td align="center"><%=title%></td>
-<td align="center"><%=author%></td>
-<td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
-</tr>
-<%
+				%>	
+				<tr>
+					<td align="center"><%=b_id%></td>
+					<td align="center"><%=title%></td>
+					<td align="center"><%=author%></td>
+					<td align="center"><a href="bookWork.jsp?b_id=<%=b_id%>&state=<%=st%>"><%=state%></a></td>
+				</tr>
+				<%
 				state="대출 가능";
 				st=1;
 			}

@@ -11,7 +11,6 @@
 <%
 	String b_id=request.getParameter("b_id");
 	String state=request.getParameter("state");	//대출:0,예약:1
-	session_id=(String)session.getAttribute("user");
 	
 	if(session_id==null){
 %>
@@ -25,10 +24,10 @@
 <%
 		Connection myConn=null;
 		String result=null;
-		//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-		String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-		//String user="db1610049";
-		String user="db1713926"; 
+		String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+		//String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+		String user="db1610049";
+		//String user="db1713926"; 
 		String passwd="oracle";
 		String dbdriver="oracle.jdbc.driver.OracleDriver";
 

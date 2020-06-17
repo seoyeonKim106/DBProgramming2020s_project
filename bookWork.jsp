@@ -33,10 +33,10 @@
 	}else{
 		Connection myConn=null;
 		String dbdriver="oracle.jdbc.driver.OracleDriver";
-		//String dburl="jdbc:oracle:thin:@localhost:1521:xe";
-		String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
-		//String user="db1610049";
-		String user="db1713926"; 
+		String dburl="jdbc:oracle:thin:@localhost:1521:xe";
+		//String dburl="jdbc:oracle:thin:@localhost:1521:orcl";
+		String user="db1610049";
+		//String user="db1713926"; 
 		String passwd="oracle";
 		
 		try{

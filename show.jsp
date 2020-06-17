@@ -39,9 +39,12 @@
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 	//String user = "db1416688";
-	String user = "db1713926";
+	//String user = "db1713926";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String user = "db1610049";
+
 	String passwd = "oracle";
 	Statement stmt=null;
 	String mySQL = null;
@@ -62,7 +65,7 @@
 	if(seat==null||seat.length>1){
 %>
 		        <script>   
-		           alert("´Ù½Ã ¼±ÅÃÇØÁÖ¼¼¿ä.");
+		           alert("ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 		           location.href="seat.jsp";
 		        </script>
 <%
@@ -85,24 +88,24 @@
 		if(count!=seat.length){
 %>		
 			<script>   
-				alert("ÀÌ¹Ì ¿¹¾àµÇ¾ú½À´Ï´Ù.");
+				alert("ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 				location.href="seat.jsp";
 			</script>
 <%
 		}
 %>
 		<div align="center">
-			<h2>ÁÂ¼® ¿¹¸Å °á°ú</h2>
+			<h2>ï¿½Â¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½</h2>
 			<p>
-				¼±ÅÃÇÑ ÁÂ¼®<br>
+				ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¼ï¿½<br>
 <% 
 		for(String s:seat){
 			out.print("<b>["+s+"]</br>");
 		}
 %>
-		<br> °¡ ¿¹¾àµÇ¾ú½À´Ï´Ù.
+		<br> ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
 		</p>
-		<a href="seat.jsp">µÚ·Î°¡±â</a>
+		<a href="seat.jsp">ï¿½Ú·Î°ï¿½ï¿½ï¿½</a>
 		</div>
 <%
 	try{		

@@ -34,19 +34,22 @@
 </head>
 <link rel='stylesheet' href='./dbDesign.css' />
 <body>
+	<%@include file="top.jsp"%>
 
 <%
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 	//String user = "db1416688";
-	String user = "db1713926";
+	//String user = "db1713926";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
+	String user = "db1610049";
+
 	String passwd = "oracle";
 	Statement stmt=null;
 	String mySQL = null;
 	String sql=null;
-	String session_id=request.getParameter("session_id");
 	ResultSet rs = null;
 	ResultSet rs2 = null;
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd");
@@ -92,7 +95,7 @@
 		}
 %>
 		<div align="center">
-			<h2>좌석 예매 결과</h2>
+			<h2>좌석 예약 결과</h2>
 			<p>
 				선택한 좌석<br>
 <% 
@@ -102,7 +105,7 @@
 %>
 		<br> 가 예약되었습니다.
 		</p>
-		<a href="seat.jsp">뒤로가기</a>
+		<a href="seats.jsp">뒤로가기</a>
 		</div>
 <%
 	try{		

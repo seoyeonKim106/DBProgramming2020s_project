@@ -27,6 +27,7 @@
 	}
 </script>
 <body>
+	<%@include file="top.jsp"%>
 
 <table width="70%" align="center" id="p_seat_table" style="font-size: 1.2em; ">
 <tr style="background-color: #4682B4; color:white;">
