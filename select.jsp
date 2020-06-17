@@ -129,6 +129,7 @@
 					title = rs_check_out_books.getString("title");
 					author = rs_check_out_books.getString("author");
 					publisher = rs_check_out_books.getString("publisher");
+					date_book = rs_check_out_books.getString("ck_date");
 					
 					%>
 						<tr>
@@ -136,6 +137,8 @@
 							<td><%=title%> </td>
 							<td><%=author%></td>
 							<td><%=publisher%></td>
+							<td><%=date_book%></td>
+							
 							<td><b><a href="returnBook.jsp?b_id=<%=b_id%>">반납</b></td>
 						</tr>
 					<%
@@ -164,7 +167,6 @@
 					
 					seat = rs_seats.getString("seat_id");
 					date_seat = rs_seats.getString("res_date");
-					System.out.println(date_seat);
 					date_seat = seatFormat.format(seatFormat.parse(date_seat));
 			%>
 				<tr>

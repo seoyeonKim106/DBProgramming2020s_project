@@ -66,7 +66,7 @@
 %>
 		        <script>   
 		           alert("다시 선택해주세요.");
-		           location.href="seat.jsp";
+		           location.href="seats.jsp";
 		        </script>
 <%
 		}
@@ -89,7 +89,7 @@
 %>		
 			<script>   
 				alert("이미 예약되었습니다.");
-				location.href="seat.jsp";
+				location.href="seats.jsp";
 			</script>
 <%
 		}
