@@ -4,6 +4,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Calendar" %>
 
 <style type="text/css">
 	* {
@@ -46,6 +48,10 @@
 	SimpleDateFormat bookFormat = new SimpleDateFormat("yyyy-mm-dd");
 	SimpleDateFormat seatFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
 
+	Date book_return_date;
+	Date seat_return_date;
+	Calendar cal = Calendar.getInstance();
+	
 	String query_reserv_books ;
 	String query_check_out_books ;
 	String query_seats = "select * from seats where res_id="+session_id;
@@ -58,6 +64,7 @@
 	ResultSet rs_check_out_books;
 	ResultSet rs_seats = stmt_seats.executeQuery(query_seats);
 
+	
 	int count = 0;
 	int count_ck = 0;
 
@@ -74,6 +81,12 @@
 			<tr>
 				<td><b><%=session_id%>님 도서 예약 내역 </b></td><p>
 			</tr>
+			<th> </th>
+			<th>제목</th>
+			<th>저자</th>
+			<th>출판사</th>
+			
+			
 			<%
 
 				query_reserv_books = "select * from books" + 
@@ -91,7 +104,7 @@
 					
 				%>
 					<tr>
-						<th scope="row"><%=count%></th>
+						<td><%=count%></td>
 						<td><%=title%> </td>
 						<td><%=author%></td>
 						<td><%=publisher%></td>
@@ -115,6 +128,13 @@
 			<tr>
 				<td><b><%=session_id%>님 도서 대출 내역 </b></td><p>
 			</tr>
+			<th> </th>
+			<th>제목</th>
+			<th>저자</th>
+			<th>출판사</th>
+			<th>대출 일자</th>
+			<th>반납 기한</th>
+			<th> </th>
 				<%
 				query_check_out_books = "select * from books, checkout "+
 						"where books.b_id=checkout.b_id and " + 
@@ -132,14 +152,17 @@
 					date_book = rs_check_out_books.getString("ck_date");
 					date_book = date_book.split(" ")[0];
 					
+					book_return_date = bookFormat.parse(date_book);
+					cal.setTime(book_return_date);
+					cal.add(Calendar.DATE, 7);
 					%>
 						<tr>
-							<th scope="row"><%=count_ck%></th>
+							<td><%=count_ck%></td>
 							<td><%=title%> </td>
 							<td><%=author%></td>
 							<td><%=publisher%></td>
 							<td><%=date_book%></td>
-							
+							<td><%=bookFormat.format(cal.getTime()) %></td>
 							<td><b><a href="returnBook.jsp?b_id=<%=b_id%>">반납</b></td>
 						</tr>
 					<%
