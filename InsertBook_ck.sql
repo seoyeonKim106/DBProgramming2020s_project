@@ -16,8 +16,7 @@ BEGIN
 	result:='temp';
 	
 	/*에러 처리1: 최대 빌릴 수 있는 권수 초과 여부 -> 대출하려는 경우에만 처리*/
-	SELECT stat INTO state FROM students WHERE s_id=sId;
-	SELECT a_quantity INTO nBooks FROM authority WHERE stat=state;
+	SELECT b_quantity INTO nBooks FROM s_info WHERE s_id=sId;
 	SELECT COUNT(*) INTO cBooks FROM checkOut WHERE s_id=sId;
 		
 	IF(nBooks<=cBooks)

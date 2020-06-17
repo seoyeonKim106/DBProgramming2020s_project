@@ -17,8 +17,7 @@ BEGIN
 	
 	SELECT count(*) INTO nCk FROM checkOut WHERE b_id=bId and s_id=sId;	
 	overdue:=calcOverdue(bId,sId);
-	SELECT stat INTO state FROM students WHERE s_id=sId;
-	SELECT a_date INTO aDays FROM authority WHERE stat=state;
+	SELECT b_days INTO aDays FROM s_info WHERE s_id=sId;
 	overdue:=calcOverdue(bId,sId);
 	
 	
