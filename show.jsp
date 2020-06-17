@@ -39,12 +39,9 @@
 	String dbdriver = "oracle.jdbc.driver.OracleDriver";
 	Class.forName(dbdriver);
 	Connection myConn = null;
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
 	//String user = "db1416688";
-	//String user = "db1713926";
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String user = "db1610049";
-
+	String user = "db1713926";
 	String passwd = "oracle";
 	Statement stmt=null;
 	String mySQL = null;
@@ -65,7 +62,7 @@
 	if(seat==null||seat.length>1){
 %>
 		        <script>   
-		           alert("�ٽ� �������ּ���.");
+		           alert("다시 선택해주세요.");
 		           location.href="seat.jsp";
 		        </script>
 <%
@@ -88,24 +85,24 @@
 		if(count!=seat.length){
 %>		
 			<script>   
-				alert("�̹� ����Ǿ����ϴ�.");
+				alert("이미 예약되었습니다.");
 				location.href="seat.jsp";
 			</script>
 <%
 		}
 %>
 		<div align="center">
-			<h2>�¼� ���� ���</h2>
+			<h2>좌석 예매 결과</h2>
 			<p>
-				������ �¼�<br>
+				선택한 좌석<br>
 <% 
 		for(String s:seat){
 			out.print("<b>["+s+"]</br>");
 		}
 %>
-		<br> �� ����Ǿ����ϴ�.
+		<br> 가 예약되었습니다.
 		</p>
-		<a href="seat.jsp">�ڷΰ���</a>
+		<a href="seat.jsp">뒤로가기</a>
 		</div>
 <%
 	try{		

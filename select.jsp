@@ -4,6 +4,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Calendar" %>
 
 <style type="text/css">
 	* {
@@ -26,10 +28,10 @@
 	Class.forName(dbdriver);
 	Connection myConn = null;
 	
-	String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
-	String user = "db1610049";
-	//String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
-	//String user = "db1713926";
+	//String dburl = "jdbc:oracle:thin:@localhost:1521:xe";	
+	//String user = "db1610049";
+	String dburl = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String user = "db1713926";
 	String pw = "oracle";
 	
 	Connection con = DriverManager.getConnection(dburl, user, pw);
@@ -45,22 +47,22 @@
 	
 	SimpleDateFormat bookFormat = new SimpleDateFormat("yyyy-mm-dd");
 	SimpleDateFormat seatFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm");
-
+	Date book_return_date;
+	Date seat_return_date;
+	Calendar cal = Calendar.getInstance();
+	
 	String query_reserv_books ;
 	String query_check_out_books ;
 	String query_seats = "select * from seats where res_id="+session_id;
-
 	Statement stmt_reserv_books = con.createStatement();
 	Statement stmt_check_out_books = con.createStatement();
 	Statement stmt_seats = con.createStatement();
-
 	ResultSet rs_reserv_books ;
 	ResultSet rs_check_out_books;
 	ResultSet rs_seats = stmt_seats.executeQuery(query_seats);
-
+	
 	int count = 0;
 	int count_ck = 0;
-
 	if (session_id == null) { 
 		
 	%>
@@ -74,10 +76,14 @@
 			<tr>
 				<td><b><%=session_id%>님 도서 예약 내역 </b></td><p>
 			</tr>
+			<th align="center">제목</th>
+			<th align="center">저자</th>
+			<th align="center">출판사</th>
+			
+			
 			<%
-				query_reserv_books = "select * from books, reserve " + 
-										 "where books.b_id=reserve.b_id " + 
-										 "and reserve.s_id='"+session_id+"'";
+				query_reserv_books = "select * from books" + 
+							" where b_id in (select b_id from reserve where s_id = '"+ session_id + "')" ;
 					
 				rs_reserv_books = stmt_reserv_books.executeQuery(query_reserv_books);
 					
@@ -91,11 +97,10 @@
 					
 				%>
 					<tr>
-						<th scope="row"><%=count%></th>
-						<td><%=title%> </td>
-						<td><%=author%></td>
-						<td><%=publisher%></td>
-						<td><b><a href="resDelete.jsp?b_id=<%=b_id%>">예약 취소</b></td>
+						<td align="center"><%=title%> </td>
+						<td align="center"><%=author%></td>
+						<td align="center"><%=publisher%></td>
+						<td align="center"><b><a href="resDelete.jsp?b_id=<%=b_id%>">예약 취소</b></td>
 					</tr>
 				<%
 					
@@ -115,6 +120,12 @@
 			<tr>
 				<td><b><%=session_id%>님 도서 대출 내역 </b></td><p>
 			</tr>
+			<th align="center">제목</th>
+			<th align="center">저자</th>
+			<th align="center">출판사</th>
+			<th align="center">대출 일자</th>
+			<th align="center">반납 기한</th>
+			<th> </th>
 				<%
 				query_check_out_books = "select * from books, checkout "+
 						"where books.b_id=checkout.b_id and " + 
@@ -129,13 +140,19 @@
 					title = rs_check_out_books.getString("title");
 					author = rs_check_out_books.getString("author");
 					publisher = rs_check_out_books.getString("publisher");
+					date_book = rs_check_out_books.getString("ck_date");
+					date_book = date_book.split(" ")[0];
 					
+					book_return_date = bookFormat.parse(date_book);
+					cal.setTime(book_return_date);
+					cal.add(Calendar.DATE, 7);
 					%>
 						<tr>
-							<th scope="row"><%=count_ck%></th>
-							<td><%=title%> </td>
-							<td><%=author%></td>
-							<td><%=publisher%></td>
+							<td align="center"><%=title%> </td>
+							<td align="center"><%=author%></td>
+							<td align="center"><%=publisher%></td>
+							<td align="center"><%=date_book%></td>
+							<td align="center"><%=bookFormat.format(cal.getTime()) %></td>
 							<td><b><a href="returnBook.jsp?b_id=<%=b_id%>">반납</b></td>
 						</tr>
 					<%
@@ -164,7 +181,6 @@
 					
 					seat = rs_seats.getString("seat_id");
 					date_seat = rs_seats.getString("res_date");
-					System.out.println(date_seat);
 					date_seat = seatFormat.format(seatFormat.parse(date_seat));
 			%>
 				<tr>
