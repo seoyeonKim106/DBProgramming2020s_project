@@ -21,7 +21,7 @@ else{
 <table class="type04" align = 'center'>
     <tr>
         <td><b><%=log%></b></td>
-        <td><b><a href="update.jsp">사용자 정보 수정</b></td>
+        <td><b><a href="update.jsp">마이페이지</b></td>
         <td><b><a href="bookMenu.jsp">책 대출 및 예약</b></td>
         <td><b><a href="seats.jsp">좌석 예약</b></td>
         <td><b><a href="select.jsp">사용자 정보 조회</b></td>

@@ -32,6 +32,12 @@
 	myResultSet=stmt.executeQuery(mySQL);
 %>
 	<form action="change_passwd_verify.jsp?id=<%=session_id%>" method="post">
+	<table align="center" >
+		<tr>
+			<td>비밀번호 변경</td>
+		</tr>
+		
+	</table>
 	<table align="center" id="update_table">
 	<tr>
 	  <td id="update_td">아이디</td>

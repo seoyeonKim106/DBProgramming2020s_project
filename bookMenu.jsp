@@ -80,7 +80,6 @@
 		stmt=myConn.createStatement();
 		String mySQL="select B.b_id, B.title, B.author, B.publisher,  NVL(C.s_id, '대출자 없음') as s_id"+
 				" from books B, checkout C where B.b_id = C.b_id (+) and B.b_major = '"+recomd+"'";
-		System.out.println(mySQL);
 		myResultSet=stmt.executeQuery(mySQL);
 		
 		String state="대출 가능";
