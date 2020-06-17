@@ -81,10 +81,9 @@
 			<tr>
 				<td><b><%=session_id%>님 도서 예약 내역 </b></td><p>
 			</tr>
-			<th> </th>
-			<th>제목</th>
-			<th>저자</th>
-			<th>출판사</th>
+			<th align="center">제목</th>
+			<th align="center">저자</th>
+			<th align="center">출판사</th>
 			
 			
 			<%
@@ -104,11 +103,10 @@
 					
 				%>
 					<tr>
-						<td><%=count%></td>
-						<td><%=title%> </td>
-						<td><%=author%></td>
-						<td><%=publisher%></td>
-						<td><b><a href="resDelete.jsp?b_id=<%=b_id%>">예약 취소</b></td>
+						<td align="center"><%=title%> </td>
+						<td align="center"><%=author%></td>
+						<td align="center"><%=publisher%></td>
+						<td align="center"><b><a href="resDelete.jsp?b_id=<%=b_id%>">예약 취소</b></td>
 					</tr>
 				<%
 					
@@ -128,12 +126,11 @@
 			<tr>
 				<td><b><%=session_id%>님 도서 대출 내역 </b></td><p>
 			</tr>
-			<th> </th>
-			<th>제목</th>
-			<th>저자</th>
-			<th>출판사</th>
-			<th>대출 일자</th>
-			<th>반납 기한</th>
+			<th align="center">제목</th>
+			<th align="center">저자</th>
+			<th align="center">출판사</th>
+			<th align="center">대출 일자</th>
+			<th align="center">반납 기한</th>
 			<th> </th>
 				<%
 				query_check_out_books = "select * from books, checkout "+
@@ -157,12 +154,11 @@
 					cal.add(Calendar.DATE, 7);
 					%>
 						<tr>
-							<td><%=count_ck%></td>
-							<td><%=title%> </td>
-							<td><%=author%></td>
-							<td><%=publisher%></td>
-							<td><%=date_book%></td>
-							<td><%=bookFormat.format(cal.getTime()) %></td>
+							<td align="center"><%=title%> </td>
+							<td align="center"><%=author%></td>
+							<td align="center"><%=publisher%></td>
+							<td align="center"><%=date_book%></td>
+							<td align="center"><%=bookFormat.format(cal.getTime()) %></td>
 							<td><b><a href="returnBook.jsp?b_id=<%=b_id%>">반납</b></td>
 						</tr>
 					<%
