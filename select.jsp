@@ -75,9 +75,9 @@
 				<td><b><%=session_id%>님 도서 예약 내역 </b></td><p>
 			</tr>
 			<%
-				query_reserv_books = "select * from books, reserve " + 
-										 "where books.b_id=reserve.b_id " + 
-										 "and reserve.s_id='"+session_id+"'";
+
+				query_reserv_books = "select * from books" + 
+							" where b_id in (select b_id from reserve where s_id = '"+ session_id + "')" ;
 					
 				rs_reserv_books = stmt_reserv_books.executeQuery(query_reserv_books);
 					
